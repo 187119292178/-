@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 命名空间  必须写  包名+类名 -->
+<mapper namespace="com.aishangrun.aishangrun.mapper.UserMapper">
+<!--    <resultMap id="usermap" type="com.aishangrun.aishangrun.entity.UserEntity">-->
+<!--        <result column="ID" property="id" jdbcType="VARCHAR"/>-->
+<!--        <result column="name" property="name" jdbcType="VARCHAR"/>-->
+<!--        <result column="password" property="password" jdbcType="VARCHAR"/>-->
+<!--        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>-->
+<!--        <result column="update_time" property="updateTime" jdbcType="DECIMAL"/>-->
+<!--        <result column="role_id" property="roleId" jdbcType="INTEGER"/>-->
+<!--        <result column="state" property="state" jdbcType="INTEGER"/>-->
+<!--        <result column="phone_num" property="phoneNum" jdbcType="INTEGER"/>-->
+<!--        <result column="authority_id" property="authorityId" jdbcType="INTEGER"/>-->
+<!--    </resultMap>-->
+    <!--添加用户 addUserPhone-->
+    <!--添加用户电话号码-->
+    <insert id="addUserPhone" parameterType="java.util.Map">
+        insert  into user (phone_num,password,create_time,`name`,id)
+        values
+        (#{phoneNum},#{password},now(),#{phoneNum},#{id})
+    </insert>
+
+<!--    //查询用户list 列表-->
+<!--    List<UserEntity> selectUserList(Map map);-->
+
+    <select id="selectUserList" parameterType="java.util.Map" resultType="com.aishangrun.aishangrun.entity.UserEntity">
+        select id,`name`,password,create_time,update_time,role_id,state,phone_num,authority_id
+        from user where 1=1
+        <if test="phoneNum!=null and phoneNum!=''">
+            and phoneNum = #{phoneNum}
+        </if>
+    </select>
+
+    <select id="selectUserPhone" parameterType="java.util.Map" resultType="com.aishangrun.aishangrun.entity.UserEntity">
+        select id,`name`,password,create_time,update_time,role_id,state,phone_num,authority_id
+ from user where phone_num = #{phoneNum};
+    </select>
+<!--    // 修改用户信息-->
+<!--    UserEntity updateUser(UserEntity user);-->
+
+<!--    //逻辑删除个用户-->
+<!--    int deleteUser(UserEntity user);-->
+
+    <!--and to_days(tor.create_time) = to_days(now())-->
+</mapper>

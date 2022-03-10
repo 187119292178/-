@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 命名空间  必须写  包名+类名 -->
+<mapper namespace="com.aishangrun.aishangrun.mapper.UserinfoMapper">
+    <!--select 标签   主要适用于查询   select    id里面写的内容是IDept里面具体实现的方法是什么
+    List<Map>
+    -->
+<!--    int addUserinfoPhone(Map map);-->
+    <insert id="addUserinfoPhone" parameterType="java.util.Map">
+        insert into userinfo  (`name`,user_id,phone_num)
+        values (#{name},#{userId},#{phoneNum});
+    </insert>
+
+<!--    //查询用户信息list 列表-->
+<!--    List<UserinfoEntity> selectUserinfoList(Map map);-->
+
+<!--    // 修改用户个人信息-->
+<!--    UserinfoEntity updateUserinfo(UserinfoEntity userinfo);-->
+    <!--更新管理员用户-->
+    <update id="updateUserinfo" parameterType="java.util.Map">
+        update userinfo
+        set
+        <if test="name != null and name != ''">
+            `name` =#{name}
+        </if>
+        <if test="age != null and age != ''">
+            ,age = #{age}
+        </if>
+        <if test="sex != null and sex != ''">
+            ,sex = #{sex}
+        </if>
+        <if test="height != null and height != ''">
+            ,height = #{height}
+        </if>
+        <if test="weight != null and weight != ''">
+            ,weight = #{weight}
+        </if>
+        <if test="totalDistance != null and totalDistance != ''">
+            ,total_distance = #{totalDistance}
+        </if>
+        <if test="totalCalorie != null and totalCalorie != ''">
+            ,total_calorie = #{totalCalorie}
+        </if>
+        <if test="totalDay != null and totalDay != ''">
+            ,total_day = #{totalDay}
+        </if>
+        <if test="phoneNum != null and phoneNum != ''">
+            ,phone_num = #{phoneNum}
+        </if>
+        where user_id = #{userId}
+    </update>
+
+<!--    //逻辑删除个用户信息-->
+<!--    int deleteUserinfo(UserinfoEntity userinfo);-->
+
+    <select id="selectUserinfoPhone" parameterType="java.util.Map" resultType="com.aishangrun.aishangrun.entity.UserinfoEntity">
+        select id,`name`,id_num,age,sex,height,weight,user_id,total_distance,total_calorie,total_day,phone_num from userinfo where phone_num = #{phoneNum};
+    </select>
+
+
+    <!--and to_days(tor.create_time) = to_days(now())-->
+</mapper>
